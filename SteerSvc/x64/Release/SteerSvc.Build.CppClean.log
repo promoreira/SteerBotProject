@@ -1,6 +1,5 @@
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\vc143.pdb
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\window.obj
-d:\projetos_vs2022\steerbotproject\steersvc\x64\release\main.obj
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\injector.obj
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\botlogic.obj
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\imgui_widgets.obj
@@ -10,12 +9,19 @@ d:\projetos_vs2022\steerbotproject\steersvc\x64\release\imgui_demo.obj
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\imgui.obj
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\imgui_impl_win32.obj
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\imgui_impl_dx11.obj
+d:\projetos_vs2022\steerbotproject\steersvc\x64\release\main.obj
+d:\projetos_vs2022\steerbotproject\build\steersvc.exe
+d:\projetos_vs2022\steerbotproject\build\steersvc.pdb
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\resource.res
+d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.ipdb
+d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.iobj
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\cl.command.1.tlog
+d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\cl.items.tlog
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\cl.read.1.tlog
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\cl.write.1.tlog
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\link.command.1.tlog
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\link.read.1.tlog
+d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\link.secondary.1.tlog
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\link.write.1.tlog
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\rc.command.1.tlog
 d:\projetos_vs2022\steerbotproject\steersvc\x64\release\steersvc.tlog\rc.read.1.tlog

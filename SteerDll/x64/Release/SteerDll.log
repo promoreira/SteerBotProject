@@ -1,4 +1,9 @@
 ﻿  Assembling Hooks.asm...
+  buffer.c
+  hde32.c
+  hde64.c
+  hook.c
+  trampoline.c
   dllmain.cpp
      Criando biblioteca D:\Projetos_VS2022\SteerBotProject\Build\SteerDll.lib e objeto D:\Projetos_VS2022\SteerBotProject\Build\SteerDll.exp
   Gerando código
