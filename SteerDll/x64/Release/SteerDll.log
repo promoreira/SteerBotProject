@@ -1,0 +1,8 @@
+﻿  Assembling Hooks.asm...
+  dllmain.cpp
+     Criando biblioteca D:\Projetos_VS2022\SteerBotProject\Build\SteerDll.lib e objeto D:\Projetos_VS2022\SteerBotProject\Build\SteerDll.exp
+  Gerando código
+  Previous IPDB not found, fall back to full compilation.
+  All 110 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finalizada a geração de código
+  SteerDll.vcxproj -> D:\Projetos_VS2022\SteerBotProject\Build\SteerDll.dll

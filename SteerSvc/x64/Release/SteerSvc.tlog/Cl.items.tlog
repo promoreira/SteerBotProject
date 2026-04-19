@@ -1,0 +1,11 @@
+D:\Projetos_VS2022\SteerBotProject\Dependencies\imgui\backends\imgui_impl_dx11.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\imgui_impl_dx11.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\imgui\backends\imgui_impl_win32.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\imgui_impl_win32.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\imgui\imgui.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\imgui.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\imgui\imgui_demo.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\imgui_demo.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\imgui\imgui_draw.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\imgui_draw.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\imgui\imgui_tables.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\imgui_tables.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\imgui\imgui_widgets.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\imgui_widgets.obj
+D:\Projetos_VS2022\SteerBotProject\SteerSvc\BotLogic.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\BotLogic.obj
+D:\Projetos_VS2022\SteerBotProject\SteerSvc\Injector.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\Injector.obj
+D:\Projetos_VS2022\SteerBotProject\SteerSvc\Main.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\Main.obj
+D:\Projetos_VS2022\SteerBotProject\SteerSvc\Window.cpp;D:\Projetos_VS2022\SteerBotProject\SteerSvc\x64\Release\Window.obj

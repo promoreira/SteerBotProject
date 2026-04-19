@@ -1,0 +1,2 @@
+﻿  Main.cpp
+D:\Projetos_VS2022\SteerBotProject\SteerSvc\Main.cpp(1,10): error C1083: Não é possível abrir arquivo incluir: 'SharedData.h': No such file or directory

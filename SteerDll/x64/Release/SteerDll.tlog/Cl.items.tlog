@@ -1,0 +1,6 @@
+D:\Projetos_VS2022\SteerBotProject\Dependencies\minhook\src\buffer.c;D:\Projetos_VS2022\SteerBotProject\SteerDll\x64\Release\buffer.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\minhook\src\hde\hde32.c;D:\Projetos_VS2022\SteerBotProject\SteerDll\x64\Release\hde32.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\minhook\src\hde\hde64.c;D:\Projetos_VS2022\SteerBotProject\SteerDll\x64\Release\hde64.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\minhook\src\hook.c;D:\Projetos_VS2022\SteerBotProject\SteerDll\x64\Release\hook.obj
+D:\Projetos_VS2022\SteerBotProject\Dependencies\minhook\src\trampoline.c;D:\Projetos_VS2022\SteerBotProject\SteerDll\x64\Release\trampoline.obj
+D:\Projetos_VS2022\SteerBotProject\SteerDll\dllmain.cpp;D:\Projetos_VS2022\SteerBotProject\SteerDll\x64\Release\dllmain.obj

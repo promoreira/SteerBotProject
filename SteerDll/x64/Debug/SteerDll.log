@@ -1,0 +1,7 @@
+﻿  dllmain.cpp
+D:\Projetos_VS2022\SteerBotProject\SteerDll\dllmain.cpp(44,1): error C1010: fim de arquivo inesperado durante procura por cabeçalho pré-compilado. Você esqueceu de adicionar '#include "pch.h"' à sua fonte?
+  pch.cpp
+D:\Projetos_VS2022\SteerBotProject\SteerDll\pch.cpp(3,10): error C1083: Não é possível abrir arquivo cabeçalho pré-compilado: 'x64\Debug\SteerDll.pch': No such file or directory
+  SteerDll.cpp
+D:\Projetos_VS2022\SteerBotProject\SteerDll\SteerDll.cpp(4,10): error C1083: Não é possível abrir arquivo cabeçalho pré-compilado: 'x64\Debug\SteerDll.pch': No such file or directory
+  Gerando Código...

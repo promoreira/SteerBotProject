@@ -1,0 +1,2 @@
+#define STEERDLL_API __declspec(dllexport)
+#define STEERDLL_API __declspec(dllimport)
