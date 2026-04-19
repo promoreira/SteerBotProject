@@ -1,21 +1,27 @@
 #pragma once
+#include <windows.h>
 #include <vector>
 #include "SharedData.h"
-#include <windows.h>
+#include "SteerPilot.h"
 
-// A struct precisa estar visível aqui. Se ela estiver no Main.cpp, 
-// o ideal é movê-la para um arquivo como SlaveInstance.h para todos enxergarem.
+// Offset do Anti-AFK
+#define ANTI_AFK_OFFSET 0x9F75E1 
+
 struct SlaveInstance {
     DWORD pid;
     HWND hwnd;
     HANDLE hProcess;
-    uintptr_t addrRemoteState; // Endereço de onde os dados estão no Slave
-    SlaveState localData;      // Cópia local dos dados para o OpenSteer usar
+    uintptr_t addrRemoteState;
+    SlaveState localData;
     bool isConnected;
+
+    SteerPilot pilot; // Persistência para o cálculo de direção
 };
 
-// Primeiro a função que manipula a lista
-void UpdateSlaves(std::vector<SlaveInstance>& slaves);
-
-// E por último o "aviso" de que a lista global existe
+// Variáveis Globais
 extern std::vector<SlaveInstance> g_activeSlaves;
+
+// Protótipos
+void UpdateSlaves(std::vector<SlaveInstance>& slaves);
+uintptr_t GetModuleBase(DWORD pid, const char* modName);
+void PatchAntiAfk(HANDLE hProc, uintptr_t baseAddr, bool active);

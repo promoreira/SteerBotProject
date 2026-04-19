@@ -3,57 +3,60 @@
 #include <cmath>
 #include "SharedData.h"
 
-// Definições de Teclas (Caso não estejam no header do sistema)
-#ifndef VK_W
-#define VK_W 0x57
-#endif
-#ifndef VK_A
-#define VK_A 0x41
-#endif
-#ifndef VK_S
-#define VK_S 0x53
-#endif
-#ifndef VK_D
-#define VK_D 0x44
-#endif
-
 class SteerPilot {
+private:
+    Vec3 lastPos = { 0, 0, 0 };
+    float estimatedYaw = 0.0f;
+
 public:
-    // Calcula o ângulo necessário para o Slave olhar para o Master
-    float GetAngleToTarget(Vec3 slavePos, Vec3 masterPos) {
-        float dx = masterPos.x - slavePos.x;
-        float dy = masterPos.y - slavePos.y;
-        return atan2f(dy, dx); // Retorna em radianos
-    }
-
-    // Decide quais teclas apertar
     void ProcessFollow(HWND hwnd, Vec3 slavePos, Vec3 masterPos) {
+        // 1. CALCULAR O YAW ESTIMADO (Para onde o boneco está realmente indo)
+        float moveX = slavePos.x - lastPos.x;
+        float moveZ = slavePos.z - lastPos.z;
+        float moveDist = sqrtf(moveX * moveX + moveZ * moveZ);
+
+        // Só atualiza o Yaw se o boneco estiver se movendo (evita ruído parado)
+        if (moveDist > 0.1f) {
+            estimatedYaw = atan2f(moveZ, moveX);
+        }
+        lastPos = slavePos; // Guarda para o próximo frame
+
+        // 2. CALCULAR DIREÇÃO PARA O MESTRE
         float dx = masterPos.x - slavePos.x;
-        float dy = masterPos.y - slavePos.y;
-        float distance = sqrtf(dx * dx + dy * dy);
+        float dz = masterPos.z - slavePos.z;
+        float distance = sqrtf(dx * dx + dz * dz);
 
-        // Margem de erro para evitar que o bot fique "tremendo" (Deadzone)
-        const float margin = 3.0f;
+        if (distance > 30.0f) {
+            // Ângulo global para o mestre
+            float angleToMaster = atan2f(dz, dx);
 
-        if (distance > 5.0f) { // Só se move se estiver a mais de 5 metros
+            // Diferença entre para onde estou indo e para onde devo ir
+            float relativeAngle = angleToMaster - estimatedYaw;
 
-            // --- Eixo Vertical (W / S) ---
-            if (dy > margin)      PostMessage(hwnd, WM_KEYDOWN, VK_W, 0);
-            else if (dy < -margin) PostMessage(hwnd, WM_KEYDOWN, VK_S, 0);
-            else { PostMessage(hwnd, WM_KEYUP, VK_W, 0); PostMessage(hwnd, WM_KEYUP, VK_S, 0); }
+            // 3. TRADUZIR PARA COMANDOS WASD
+            // Local Frente (Z) e Lado (X) relativo ao boneco
+            float localZ = cosf(relativeAngle);
+            float localX = sinf(relativeAngle);
 
-            // --- Eixo Horizontal (A / D) ---
-            if (dx > margin)      PostMessage(hwnd, WM_KEYDOWN, VK_D, 0);
-            else if (dx < -margin) PostMessage(hwnd, WM_KEYDOWN, VK_A, 0);
-            else { PostMessage(hwnd, WM_KEYUP, VK_A, 0); PostMessage(hwnd, WM_KEYUP, VK_D, 0); }
+            // Frente / Trás
+            if (localZ > 0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'W', 0); PostMessage(hwnd, WM_KEYUP, 'S', 0); }
+            else if (localZ < -0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'S', 0); PostMessage(hwnd, WM_KEYUP, 'W', 0); }
+            else { PostMessage(hwnd, WM_KEYUP, 'W', 0); PostMessage(hwnd, WM_KEYUP, 'S', 0); }
 
+            // Esquerda / Direita
+            if (localX > 0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'D', 0); PostMessage(hwnd, WM_KEYUP, 'A', 0); }
+            else if (localX < -0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'A', 0); PostMessage(hwnd, WM_KEYUP, 'D', 0); }
+            else { PostMessage(hwnd, WM_KEYUP, 'A', 0); PostMessage(hwnd, WM_KEYUP, 'D', 0); }
         }
         else {
-            // Para totalmente se estiver perto o suficiente
-            PostMessage(hwnd, WM_KEYUP, VK_W, 0);
-            PostMessage(hwnd, WM_KEYUP, VK_S, 0);
-            PostMessage(hwnd, WM_KEYUP, VK_A, 0);
-            PostMessage(hwnd, WM_KEYUP, VK_D, 0);
+            StopAll(hwnd);
         }
+    }
+
+    void StopAll(HWND hwnd) {
+        PostMessage(hwnd, WM_KEYUP, 'W', 0);
+        PostMessage(hwnd, WM_KEYUP, 'S', 0);
+        PostMessage(hwnd, WM_KEYUP, 'A', 0);
+        PostMessage(hwnd, WM_KEYUP, 'D', 0);
     }
 };
