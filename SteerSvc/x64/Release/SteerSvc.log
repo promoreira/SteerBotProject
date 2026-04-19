@@ -1,6 +1,6 @@
 ﻿  Main.cpp
   Gerando código
-  Previous IPDB not found, fall back to full compilation.
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
   All 1807 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finalizada a geração de código
   SteerSvc.vcxproj -> D:\Projetos_VS2022\SteerBotProject\Build\SteerSvc.exe
