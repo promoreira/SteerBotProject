@@ -7,46 +7,57 @@ class SteerPilot {
 private:
     Vec3 lastPos = { 0, 0, 0 };
     float estimatedYaw = 0.0f;
+    const float PI = 3.1415926535f;
 
 public:
     void ProcessFollow(HWND hwnd, Vec3 slavePos, Vec3 masterPos) {
-        // 1. CALCULAR O YAW ESTIMADO (Para onde o boneco está realmente indo)
+        // 1. Estima a direção baseada no movimento real (Aprendizado)
         float moveX = slavePos.x - lastPos.x;
-        float moveZ = slavePos.z - lastPos.z;
-        float moveDist = sqrtf(moveX * moveX + moveZ * moveZ);
+        float moveY = slavePos.y - lastPos.y;
+        float moveDist = sqrtf(moveX * moveX + moveY * moveY);
 
-        // Só atualiza o Yaw se o boneco estiver se movendo (evita ruído parado)
-        if (moveDist > 0.1f) {
-            estimatedYaw = atan2f(moveZ, moveX);
+        if (moveDist > 0.05f) {
+            estimatedYaw = atan2f(moveY, moveX) * (180.0f / PI);
         }
-        lastPos = slavePos; // Guarda para o próximo frame
+        lastPos = slavePos;
 
-        // 2. CALCULAR DIREÇÃO PARA O MESTRE
+        // 2. Calcula o ângulo para o Mestre
         float dx = masterPos.x - slavePos.x;
-        float dz = masterPos.z - slavePos.z;
-        float distance = sqrtf(dx * dx + dz * dz);
+        float dy = masterPos.y - slavePos.y;
+        float targetAngle = atan2f(dy, dx) * (180.0f / PI);
+        float distance = sqrtf(dx * dx + dy * dy);
 
-        if (distance > 30.0f) {
-            // Ângulo global para o mestre
-            float angleToMaster = atan2f(dz, dx);
+        if (distance > 5.0f) {
+            float angleDiff = targetAngle - estimatedYaw;
 
-            // Diferença entre para onde estou indo e para onde devo ir
-            float relativeAngle = angleToMaster - estimatedYaw;
+            // Normaliza o ângulo (-180 a 180)
+            while (angleDiff > 180) angleDiff -= 360;
+            while (angleDiff < -180) angleDiff += 360;
 
-            // 3. TRADUZIR PARA COMANDOS WASD
-            // Local Frente (Z) e Lado (X) relativo ao boneco
-            float localZ = cosf(relativeAngle);
-            float localX = sinf(relativeAngle);
+            // --- 3. ROTAÇÃO VIA TECLADO (A / D) ---
+            // Em vez de mexer o mouse, fazemos o boneco girar pressionando A ou D
+            if (angleDiff > 15.0f) {
+                PostMessage(hwnd, WM_KEYDOWN, 'D', 0);
+                PostMessage(hwnd, WM_KEYUP, 'A', 0);
+            }
+            else if (angleDiff < -15.0f) {
+                PostMessage(hwnd, WM_KEYDOWN, 'A', 0);
+                PostMessage(hwnd, WM_KEYUP, 'D', 0);
+            }
+            else {
+                // Se estiver alinhado, solta as teclas de giro
+                PostMessage(hwnd, WM_KEYUP, 'A', 0);
+                PostMessage(hwnd, WM_KEYUP, 'D', 0);
+            }
 
-            // Frente / Trás
-            if (localZ > 0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'W', 0); PostMessage(hwnd, WM_KEYUP, 'S', 0); }
-            else if (localZ < -0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'S', 0); PostMessage(hwnd, WM_KEYUP, 'W', 0); }
-            else { PostMessage(hwnd, WM_KEYUP, 'W', 0); PostMessage(hwnd, WM_KEYUP, 'S', 0); }
-
-            // Esquerda / Direita
-            if (localX > 0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'D', 0); PostMessage(hwnd, WM_KEYUP, 'A', 0); }
-            else if (localX < -0.3f) { PostMessage(hwnd, WM_KEYDOWN, 'A', 0); PostMessage(hwnd, WM_KEYUP, 'D', 0); }
-            else { PostMessage(hwnd, WM_KEYUP, 'A', 0); PostMessage(hwnd, WM_KEYUP, 'D', 0); }
+            // --- 4. MOVIMENTO FRENTE (W) ---
+            // Só aperta W se estiver minimamente apontado para o alvo (margem de 45 graus)
+            if (fabs(angleDiff) < 45.0f) {
+                PostMessage(hwnd, WM_KEYDOWN, 'W', 0);
+            }
+            else {
+                PostMessage(hwnd, WM_KEYUP, 'W', 0);
+            }
         }
         else {
             StopAll(hwnd);

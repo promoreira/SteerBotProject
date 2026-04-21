@@ -4,7 +4,7 @@
 #include "SharedData.h"
 #include "SteerPilot.h"
 
-// Offset do Anti-AFK
+// Offset do Anti-AFK conforme seu script do CE
 #define ANTI_AFK_OFFSET 0x9F75E1 
 
 struct SlaveInstance {
@@ -15,13 +15,12 @@ struct SlaveInstance {
     SlaveState localData;
     bool isConnected;
 
-    SteerPilot pilot; // Persistência para o cálculo de direção
+    // O objeto pilot vive aqui para lembrar a direção anterior (Auto-Aprendizado)
+    SteerPilot pilot;
 };
 
-// Variáveis Globais
 extern std::vector<SlaveInstance> g_activeSlaves;
 
-// Protótipos
 void UpdateSlaves(std::vector<SlaveInstance>& slaves);
 uintptr_t GetModuleBase(DWORD pid, const char* modName);
 void PatchAntiAfk(HANDLE hProc, uintptr_t baseAddr, bool active);
